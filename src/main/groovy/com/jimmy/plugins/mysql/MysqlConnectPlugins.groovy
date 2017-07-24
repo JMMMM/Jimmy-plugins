@@ -11,10 +11,5 @@ class MysqlConnectPlugins implements Plugin<Project>{
     @Override
     void apply(Project project) {
         project.getTasks().create("generator",MysqlGenerator.class)
-        project.configurations.add("gradleMysqlPlugin")
-
-        project.dependencies {
-            gradleMysqlPlugin "mysql:mysql-connector-java:5.1.6"
-        }
     }
 }
