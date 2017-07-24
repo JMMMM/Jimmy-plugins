@@ -1,11 +1,36 @@
-apply plugin: 'groovy'
+buildscript{
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies{
+        classpath group:'com.jimmy',name:'plugins',version:'1.0'
+    }
+}
 
+apply plugin: 'groovy'
+apply plugin: 'maven-publish'
+apply plugin: 'project-structure'
 dependencies {
     compile gradleApi()
     compile localGroovy()
 }
+version = "1.0"
+group = 'com.jimmy'
 
-task "create-dirs" << {
-    sourceSets*.java.srcDirs*.each { it.mkdirs() }
-    sourceSets*.resources.srcDirs*.each { it.mkdirs() }
+task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+}
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId group
+            artifactId 'plugins'
+            version '1.0'
+            from components.java
+            artifact sourceJar {
+                classifier "sources"
+            }
+        }
+    }
 }
