@@ -31,9 +31,14 @@ publishing {
         }
     }
 }
+// tag::repositories[]
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
 
 dependencies{
+    compile "mysql:mysql-connector-java:5.1.6"
     compile gradleApi()
     compile localGroovy()
-    compile "mysql:mysql-connector-java:5.1.6"
 }
